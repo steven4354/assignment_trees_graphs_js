@@ -37,12 +37,10 @@ What would the Big O be of REMOVING a vertex or edge from:
 An Edge List? O(n) where n = number of edges
 An Adjacency Matrix? O(n) go through the vertex's column and row
 An Adjacency List?
-```
 
 O(e) where e = # of edges
 O(a \* n) where a = number of lists and n = avg. number of nodes in each list
 
-```
 worst case:
 O(n^2) where every user is connected and n = # of connection
 ```
