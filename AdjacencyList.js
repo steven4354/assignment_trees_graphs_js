@@ -1,7 +1,8 @@
 class LinkedListNode {
-  constructor(id, weight) {
-    this.id = id;
-    this.weight = weight;
+  constructor(data) {
+    this.id = data.id;
+    this.name = data.name;
+    this.weight = data.weight;
     this.next = null;
   }
 }
@@ -32,18 +33,24 @@ class AdjacencyList {
 
     //set up the initial headNodes without lists yet
     edgelist.forEach(arr => {
-      let personId1 = arr[0].id;
-      let personId2 = arr[1].id;
-      let weight = arr[2];
+      let person1 = {};
+      person1.id = arr[0].id;
+      person1.name = arr[0].name;
+      person1.weight = arr[2];
 
-      if (!this.array[personId1]) {
-        let headNode = new LinkedListNode(personId1, weight);
-        this.array[personId1] = headNode;
+      let person2 = {};
+      person2.id = arr[1].id;
+      person2.name = arr[1].name;
+      person2.weight = arr[2];
+
+      if (!this.array[person1.id]) {
+        let headNode = new LinkedListNode(person1);
+        this.array[person1.id] = headNode;
       }
 
-      if (!this.array[personId2]) {
-        let headNode = new LinkedListNode(personId2, weight);
-        this.array[personId2] = headNode;
+      if (!this.array[person2.id]) {
+        let headNode = new LinkedListNode(person2);
+        this.array[person2.id] = headNode;
       }
     });
 
@@ -54,18 +61,60 @@ class AdjacencyList {
 
     //link the relationships to the list
     edgelist.forEach(arr => {
-      let personId1 = arr[0].id;
-      let personId2 = arr[1].id;
-      let weight = arr[2];
+      let person1 = {};
+      person1.id = arr[0].id;
+      person1.name = arr[0].name;
+      person1.weight = arr[2];
 
-      let newNode1 = new LinkedListNode(personId1, weight);
-      let newNode2 = new LinkedListNode(personId2, weight);
+      let person2 = {};
+      person2.id = arr[1].id;
+      person2.name = arr[1].name;
+      person2.weight = arr[2];
 
-      this.array[personId1].insertNextAtEnd(newNode2);
-      this.array[personId2].insertNextAtEnd(newNode1);
+      let newNode1 = new LinkedListNode(person1);
+      let newNode2 = new LinkedListNode(person2);
+
+      this.array[person1.id].insertNextAtEnd(newNode2);
+      this.array[person2.id].insertNextAtEnd(newNode1);
     });
+  }
+
+  printAdjList() {
+    this.array.forEach(list => {
+      let currentNode = list.headNode;
+      let str = "";
+      while (currentNode.next) {
+        str += currentNode.next.name + " " + currentNode.next.weight + " ";
+        currentNode = currentNode.next;
+      }
+      console.log(str);
+    });
+  }
+
+  edgeWeight(id1, id2) {
+    this.array[id1]; //list
+
+    let currentNode = this.array[id1].headNode;
+    while (currentNode && currentNode.id !== id2) {
+      // if (currentNode.id == idx2) {
+      //   break;
+      // }
+      // if (currentNode.next == null) {
+      //   break;
+      // }
+      currentNode = currentNode.next;
+    }
+
+    if (currentNode) {
+      return currentNode.weight;
+    } else {
+      return "not valid";
+    }
   }
 }
 
 var a = new AdjacencyList(edgeList);
 console.log(a.array);
+a.printAdjList();
+let edgeWeight = a.edgeWeight(1, 2);
+console.log(edgeWeight);
