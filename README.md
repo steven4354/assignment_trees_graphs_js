@@ -1,4 +1,4 @@
-# assignment_graphs_trees
+# graphs_trees
 
 Rise over run.
 
