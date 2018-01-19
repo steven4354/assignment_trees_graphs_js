@@ -52,6 +52,10 @@ class AdjacencyMatrix {
       console.log(`${string} `);
     });
   }
+
+  edgeWeight(id1, id2) {
+    return this.matrix[id1][id2];
+  }
 }
 
 const printEdgeList = () => {
